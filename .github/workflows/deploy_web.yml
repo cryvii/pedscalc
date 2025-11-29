@@ -25,9 +25,10 @@ jobs:
         run: flutter pub get
 
       # Build with the repository name as the base-href
-      # This assumes the repo is hosted at username.github.io/repo-name/
       - name: Build Web
-        run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+        run: |
+          flutter build web --release --base-href "/${{ github.event.repository.name }}/" --web-renderer html
+          touch build/web/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
